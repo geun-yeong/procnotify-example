@@ -9,6 +9,12 @@ VOID MyCreateProcessNotifyRoutine(
 	_In_ BOOLEAN isCreate
 )
 {
+#ifndef _DEBUG
+	UNREFERENCED_PARAMETER(parentPid);
+	UNREFERENCED_PARAMETER(processId);
+	UNREFERENCED_PARAMETER(isCreate);
+#endif
+
 	if (isCreate) {
 		KdPrint(("[procnotify] " __FUNCTION__ " PPID(%u) created PID(%u)\n",
 			     PtrToUint(parentPid),
@@ -28,6 +34,12 @@ VOID MyCreateThreadNotifyRoutine(
 	_In_ BOOLEAN isCreate
 )
 {
+#ifndef _DEBUG
+	UNREFERENCED_PARAMETER(processId);
+	UNREFERENCED_PARAMETER(threadId);
+	UNREFERENCED_PARAMETER(isCreate);
+#endif
+
 	if (isCreate) {
 		KdPrint(("[procnotify] " __FUNCTION__ " TID(%u) was created in PID(%u) by PID(%u)\n",
 			     PtrToUint(threadId),                  // made thread
@@ -49,6 +61,12 @@ VOID MyLoadImageNotifyRoutine(
 	_In_ PIMAGE_INFO imageInfo
 )
 {
+#ifndef _DEBUG
+	UNREFERENCED_PARAMETER(imageName);
+	UNREFERENCED_PARAMETER(processId);
+	UNREFERENCED_PARAMETER(imageInfo);
+#endif
+
 	if (imageName) {
 		KdPrint(("[procnotify] " __FUNCTION__ " PID(%u) loaded a/an %wZ at 0x%p\n",
 			     PtrToUint(processId),
